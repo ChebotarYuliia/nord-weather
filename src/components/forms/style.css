@@ -1,0 +1,12 @@
+.forms-container{
+    width: 350px;
+    margin: 20px auto;
+}
+
+.forms-container .nav-item{
+    cursor: pointer;
+}
+
+.forms-container .nav-tabs .nav-link.active{
+    font-weight: bold;
+}
