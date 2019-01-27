@@ -1,44 +1,52 @@
-#searchInput{
-    width: 100%;
-    padding: 10px;
-    background: #1e202b;
-    color: white;
-    outline: none;
-    border: none;
-    border-radius: 30px;
-    margin-bottom: 20px;
+#searchInput {
+  width: 100%;
+  padding: 10px;
+  background: #1e202b;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  margin-bottom: 20px;
 }
 
-.city-wrp{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.city-wrp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.city-btn{
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    outline: none;
-    padding: 10px 5px;
-    font-size: 16px;
-    color: #1e202b;
-    display: block;
-    cursor: pointer;
+.city-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  padding: 10px 5px;
+  font-size: 16px;
+  color: #1e202b;
+  display: block;
+  cursor: pointer;
 }
 
-.city-btn.active{
-    color: #009ad8;
-    font-weight: bold;
-    outline: none;
+.city-btn.active {
+  color: #009ad8;
+  font-weight: bold;
+  outline: none;
 }
 
-.delete-city__btn{
-    border: none;
-    background: #009ad8;
-    padding: 3px 25px;
-    border-radius: 30px;
-    color: white;
-    cursor: pointer;
-    outline: none;
+.delete-city__btn {
+  border: none;
+  background: #009ad8;
+  padding: 3px 25px;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.weather__title-sity {
+  color: #009ad8;
+}
+
+.weather__title-country {
+  font-weight: bold;
 }

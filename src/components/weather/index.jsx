@@ -10,18 +10,18 @@ class Weather extends Component {
     super();
 
     this.state = {
-      currentLocation: { lat: "", lon: "" },
-      cities: [{ name: "Kharkiv" }],
-      activeCity: { name: "Kharkiv" }
+      currentLocation: [{ lat: "", lon: "" }, { name: "" }],
+      cities: [{ name: "Kharkiv" }]
     };
-    this.setActiveCityIndex = this.setActiveCityIndex.bind(this);
+    this.setCurrentLocationIndex = this.setCurrentLocationIndex.bind(this);
     this.handleDeleteCity = this.handleDeleteCity.bind(this);
-    this.getCurrentPosition = this.getCurrentPosition.bind(this);
   }
 
-  setActiveCityIndex = newIndex => {
+  setCurrentLocationIndex = newIndex => {
     const index = newIndex;
-    this.setState({ activeCity: this.state.cities[index] });
+    const { currentLocation } = this.state;
+    currentLocation[1] = this.state.cities[index];
+    console.log(currentLocation);
   };
 
   handleSearchSubmit(place) {
@@ -41,14 +41,12 @@ class Weather extends Component {
     });
   };
 
-  getCurrentPosition() {
+  componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const { currentLocation } = this.state;
-        currentLocation.lat = position.coords.latitude;
-        currentLocation.lon = position.coords.longitude;
-        // getWeather(currentLocation.lat, currentLocation.lon);
-        console.log(currentLocation.lat, currentLocation.lon);
+        currentLocation[0].lat = position.coords.latitude;
+        currentLocation[0].lon = position.coords.longitude;
       });
     } else {
       console.log("Geolocation is not supported by this browser.");
@@ -56,7 +54,7 @@ class Weather extends Component {
   }
 
   render() {
-    const { activeCity } = this.state;
+    const { currentLocation } = this.state;
     return (
       <div>
         <Container onClick={this.getCurrentPosition}>
@@ -74,13 +72,13 @@ class Weather extends Component {
                 <Cities
                   cities={this.state.cities}
                   componentRestrictions={{ country: "us" }}
-                  chosenCity={this.setActiveCityIndex}
+                  chosenCity={this.setCurrentLocationIndex}
                   delete={this.handleDeleteCity}
                 />
               </div>
             </Col>
             <Col xs="12" sm="6">
-              <WeatherAPI city={activeCity.name} />
+              <WeatherAPI city={currentLocation} />
             </Col>
           </Row>
         </Container>
