@@ -12,28 +12,26 @@ class WeatherAPI extends Component {
   }
 
   requestData(props = this.props) {
-    console.log(props.city);
-    console.log(props.city[1]);
     const city = props.city;
-    // if (city[0].lat) {
-    //   const url = `http://api.openweathermap.org/data/2.5/weather?lat=${
-    //     city[0].lat
-    //   }&lon=${city[0].lon}&appid=b1b35bba8b434a28a0be2a3e1071ae5b`;
-    //   fetch(url)
-    //     .then(res => res.json())
-    //     .then(json => {
-    //       this.setState({ weatherData: json });
-    //     });
-    // } else {
+    if (city.lat) {
+      const url = `http://api.openweathermap.org/data/2.5/weather?lat=${
+        city.lat
+      }&lon=${city.lon}&appid=b1b35bba8b434a28a0be2a3e1071ae5b`;
+      fetch(url)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({ weatherData: json });
+        });
+    } else {
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${
-      city[1].name
+      city.name
     }&appid=b1b35bba8b434a28a0be2a3e1071ae5b&&units=metric`;
     fetch(url)
       .then(res => res.json())
       .then(json => {
         this.setState({ weatherData: json });
       });
-    // }
+    }
   }
 
   componentDidMount() {

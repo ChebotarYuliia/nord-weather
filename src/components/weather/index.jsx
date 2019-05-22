@@ -10,7 +10,7 @@ class Weather extends Component {
     super();
 
     this.state = {
-      currentLocation: [{ lat: "", lon: "" }, { name: "" }],
+      currentLocation: {},
       cities: [{ name: "Kharkiv" }]
     };
     this.setCurrentLocationIndex = this.setCurrentLocationIndex.bind(this);
@@ -19,9 +19,11 @@ class Weather extends Component {
 
   setCurrentLocationIndex = newIndex => {
     const index = newIndex;
-    const { currentLocation } = this.state;
-    currentLocation[1] = this.state.cities[index];
-    console.log(currentLocation);
+    let { currentLocation } = this.state;
+    currentLocation = this.state.cities[index];
+    this.setState({
+      currentLocation
+    })
   };
 
   handleSearchSubmit(place) {
@@ -43,11 +45,27 @@ class Weather extends Component {
 
   componentDidMount() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+
+      const success = pos => {
+        const crd = pos.coords;
         const { currentLocation } = this.state;
-        currentLocation[0].lat = position.coords.latitude;
-        currentLocation[0].lon = position.coords.longitude;
-      });
+        currentLocation.lat = crd.latitude;
+        currentLocation.lon = crd.longitude;
+        this.setState({
+          currentLocation
+        });
+      };
+
+      const error = err => {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      };
+
+      navigator.geolocation.getCurrentPosition(success, error, options);
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
